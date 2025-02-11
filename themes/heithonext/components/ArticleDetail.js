@@ -1,20 +1,20 @@
-import BlogAround from './BlogAround'
 import Comment from '@/components/Comment'
-import RecommendPosts from './RecommendPosts'
+import LazyImage from '@/components/LazyImage'
+import NotionIcon from '@/components/NotionIcon'
+import NotionPage from '@/components/NotionPage'
 import ShareBar from '@/components/ShareBar'
-import TagItem from './TagItem'
+import WWAds from '@/components/WWAds'
+import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
+import { formatDateFmt } from '@/lib/utils/formatDate'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import ArticleCopyright from './ArticleCopyright'
-import WordCount from './WordCount'
-import NotionPage from '@/components/NotionPage'
 import CONFIG from '../config'
-import NotionIcon from '@/components/NotionIcon'
-import LazyImage from '@/components/LazyImage'
-import { formatDateFmt } from '@/lib/utils/formatDate'
-import { siteConfig } from '@/lib/config'
-import WWAds from '@/components/WWAds'
+import ArticleCopyright from './ArticleCopyright'
+import BlogAround from './BlogAround'
+import RecommendPosts from './RecommendPosts'
+import TagItem from './TagItem'
+import WordCount from '@/components/WordCount'
 
 /**
  *
@@ -35,9 +35,7 @@ export default function ArticleDetail(props) {
   }
 
   return (
-    <div
-      id='article-wrapper'
-      className='shadow md:hover:shadow-2xl overflow-x-auto flex-grow mx-auto w-screen md:w-full '>
+    <div className='shadow md:hover:shadow-2xl overflow-x-auto flex-grow mx-auto w-screen md:w-full '>
       <div
         itemScope
         itemType='https://schema.org/Movie'
@@ -94,13 +92,13 @@ export default function ArticleDetail(props) {
                 )}
               </div>
 
-              <WordCount />
+              <WordCount wordCount={post.wordCount} readTime={post.readTime} />
             </section>
           </header>
         )}
 
         {/* Notion内容主体 */}
-        <article className='mx-auto'>
+        <article id='article-wrapper' className='mx-auto'>
           <WWAds className='w-full' orientation='horizontal' />
           {post && <NotionPage post={post} />}
           <WWAds className='w-full' orientation='horizontal' />

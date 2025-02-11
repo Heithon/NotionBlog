@@ -1,32 +1,37 @@
-import CONFIG from './config'
+import replaceSearchResult from '@/components/Mark'
+import { siteConfig } from '@/lib/config'
+import { useGlobal } from '@/lib/global'
+import { isBrowser } from '@/lib/utils'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import Announcement from './components/Announcement'
+import ArticleDetail from './components/ArticleDetail'
+import { ArticleLock } from './components/ArticleLock'
+import BlogListBar from './components/BlogListBar'
+import BlogPostArchive from './components/BlogPostArchive'
+import BlogPostListPage from './components/BlogPostListPage'
+import BlogPostListScroll from './components/BlogPostListScroll'
+import Card from './components/Card'
 import FloatDarkModeButton from './components/FloatDarkModeButton'
 import Footer from './components/Footer'
 import JumpToBottomButton from './components/JumpToBottomButton'
 import JumpToTopButton from './components/JumpToTopButton'
 import SideAreaLeft from './components/SideAreaLeft'
 import SideAreaRight from './components/SideAreaRight'
-import TopNav from './components/TopNav'
-import { useGlobal } from '@/lib/global'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
-import BlogPostListScroll from './components/BlogPostListScroll'
-import BlogPostListPage from './components/BlogPostListPage'
 import StickyBar from './components/StickyBar'
-import { isBrowser } from '@/lib/utils'
-import TocDrawerButton from './components/TocDrawerButton'
-import TocDrawer from './components/TocDrawer'
-import { ArticleLock } from './components/ArticleLock'
-import BlogPostArchive from './components/BlogPostArchive'
 import TagItem from './components/TagItem'
-import { useRouter } from 'next/router'
-import ArticleDetail from './components/ArticleDetail'
-import Link from 'next/link'
-import BlogListBar from './components/BlogListBar'
+import TocDrawer from './components/TocDrawer'
+import TocDrawerButton from './components/TocDrawerButton'
+import TopNav from './components/TopNav'
+import CONFIG from './config'
 import { Style } from './style'
-import replaceSearchResult from '@/components/Mark'
-import { siteConfig } from '@/lib/config'
-import AlgoliaSearchModal from '@/components/AlgoliaSearchModal'
-import Announcement from './components/Announcement'
-import Card from './components/Card'
+
+const AlgoliaSearchModal = dynamic(
+  () => import('@/components/AlgoliaSearchModal'),
+  { ssr: false }
+)
 
 // 主题全局状态
 const ThemeGlobalNext = createContext()
@@ -89,7 +94,9 @@ const LayoutBase = props => {
 
   return (
     <ThemeGlobalNext.Provider value={{ searchModal }}>
-      <div id='theme-next'>
+      <div
+        id='theme-next'
+        className={`${siteConfig('FONT_STYLE')} dark:bg-black scroll-smooth`}>
         <Style />
 
         {/* 移动端顶部导航栏 */}
@@ -313,6 +320,26 @@ const LayoutArchive = props => {
  */
 const LayoutSlug = props => {
   const { post, lock, validPassword } = props
+
+  const router = useRouter()
+  const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+  useEffect(() => {
+    // 404
+    if (!post) {
+      setTimeout(() => {
+        if (isBrowser) {
+          const article = document.querySelector(
+            '#article-wrapper #notion-article'
+          )
+          if (!article) {
+            router.push('/404').then(() => {
+              console.warn('找不到页面', router.asPath)
+            })
+          }
+        }
+      }, waiting404)
+    }
+  }, [post])
   return (
     <>
       {post && !lock && <ArticleDetail {...props} />}
@@ -391,14 +418,14 @@ const LayoutTagIndex = props => {
 }
 
 export {
-  CONFIG as THEME_CONFIG,
-  LayoutBase,
-  LayoutIndex,
-  LayoutSearch,
-  LayoutArchive,
-  LayoutSlug,
   Layout404,
+  LayoutArchive,
+  LayoutBase,
   LayoutCategoryIndex,
+  LayoutIndex,
   LayoutPostList,
-  LayoutTagIndex
+  LayoutSearch,
+  LayoutSlug,
+  LayoutTagIndex,
+  CONFIG as THEME_CONFIG
 }

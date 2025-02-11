@@ -1,15 +1,14 @@
+import NotionIcon from '@/components/NotionIcon'
+import NotionPage from '@/components/NotionPage'
+import TwikooCommentCount from '@/components/TwikooCommentCount'
+import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
+import { formatDateFmt } from '@/lib/utils/formatDate'
 import Image from 'next/image'
 import Link from 'next/link'
+import CONFIG from '../config'
 import Card from './Card'
 import TagItemMini from './TagItemMini'
-import CONFIG from '../config'
-import NotionPage from '@/components/NotionPage'
-import NotionIcon from '@/components/NotionIcon'
-import TwikooCommentCount from '@/components/TwikooCommentCount'
-import { formatDateFmt } from '@/lib/utils/formatDate'
-import { siteConfig } from '@/lib/config'
-import { checkContainHttp, sliceUrlFromHttp } from '../util'
 
 const BlogPostCard = ({ post, index, showSummary }) => {
   const { locale } = useGlobal()
