@@ -22,9 +22,9 @@ const BlogPostArchive = ({ posts = [], archiveTitle }) => {
         </div>
         <ul>
           {posts?.map(post => {
-            const url = checkContainHttp(post.slug)
-              ? sliceUrlFromHttp(post.slug)
-              : `${siteConfig('SUB_PATH', '')}/${post.slug}`
+            // const url = checkContainHttp(post.slug)
+            //   ? sliceUrlFromHttp(post.slug)
+            //   : `${siteConfig('SUB_PATH', '')}/${post.slug}`
 
             return (
               <li
@@ -34,7 +34,7 @@ const BlogPostArchive = ({ posts = [], archiveTitle }) => {
                   <span className='text-gray-500'>{post.date?.start_date}</span>{' '}
                   &nbsp;
                   <Link
-                    href={url}
+                    href={post?.href}
                     passHref
                     className='dark:text-gray-400  dark:hover:text-red-500 overflow-x-hidden hover:underline cursor-pointer text-gray-600'>
                     {post.title}

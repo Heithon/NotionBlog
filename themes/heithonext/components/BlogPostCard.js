@@ -25,9 +25,9 @@ const BlogPostCard = ({ post, index, showSummary }) => {
           'data-aos-anchor-placement': 'top-bottom'
         }
       : {}
-  const url = checkContainHttp(post.slug)
-    ? sliceUrlFromHttp(post.slug)
-    : `${siteConfig('SUB_PATH', '')}/${post.slug}`
+  // const url = checkContainHttp(post.slug)
+  //   ? sliceUrlFromHttp(post.slug)
+  //   : `${siteConfig('SUB_PATH', '')}/${post.slug}`
 
   return (
     <Card className='w-full post-card'>
@@ -38,10 +38,12 @@ const BlogPostCard = ({ post, index, showSummary }) => {
           {/* 文章标题 */}
           <Link
             {...aosProps}
-            href={url}
+            href={post?.href}
             passHref
             className={`cursor-pointer text-3xl ${showPreview ? 'text-center' : ''} leading-tight text-gray-700 dark:text-gray-100 hover:text-red-500 dark:hover:text-red-600`}>
-            <NotionIcon icon={post.pageIcon} />{' '}
+            {siteConfig('POST_TITLE_ICON') && (
+              <NotionIcon icon={post.pageIcon} />
+            )}{' '}
             <span className='menu-link'>{post.title}</span>
           </Link>
 
@@ -106,7 +108,7 @@ const BlogPostCard = ({ post, index, showSummary }) => {
 
           <div className='text-right border-t pt-8 border-dashed'>
             <Link
-              href={url}
+              href={post?.href}
               className='hover:bg-opacity-100 hover:underline transform duration-300 p-3 text-white bg-red-900 cursor-pointer'>
               {locale.COMMON.ARTICLE_DETAIL}
               <i className='ml-1 fas fa-angle-right' />
@@ -116,7 +118,7 @@ const BlogPostCard = ({ post, index, showSummary }) => {
 
         {siteConfig('NEXT_POST_LIST_COVER', null, CONFIG) &&
           post?.pageCoverThumbnail && (
-            <Link href={url} passHref legacyBehavior>
+            <Link href={post?.href} passHref legacyBehavior>
               <div className='h-36 w-full relative duration-200 cursor-pointer transform overflow-hidden'>
                 <Image
                   className='hover:scale-105 transform duration-500'
