@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
 import throttle from 'lodash.throttle'
 import { uuidToId } from 'notion-utils'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Progress from './Progress'
 
 /**
