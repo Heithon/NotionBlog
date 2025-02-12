@@ -163,6 +163,36 @@ const LayoutBase = props => {
 
         {/* 页脚 */}
         <Footer title={siteConfig('TITLE')} />
+
+        {/* dify AI 机器人 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.difyChatbotConfig = {
+                token: 'EKKHgGZMGGJxdkjZ',
+                baseUrl: 'http://150.138.83.71:8080'
+              }
+            `
+          }}
+        />
+        <script
+          src='http://150.138.83.71:8080/embed.min.js'
+          id='EKKHgGZMGGJxdkjZ'
+          defer
+        />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              #dify-chatbot-bubble-button {
+                background-color:rgb(255, 0, 0) !important;
+              }
+              #dify-chatbot-bubble-window {
+                width: 24rem !important;
+                height: 40rem !important;
+              }
+            `
+          }}
+        />
       </div>
     </ThemeGlobalNext.Provider>
   )
