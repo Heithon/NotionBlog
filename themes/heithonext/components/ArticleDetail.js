@@ -1,7 +1,7 @@
 import Comment from '@/components/Comment'
 import LazyImage from '@/components/LazyImage'
 import NotionIcon from '@/components/NotionIcon'
-import NotionPage from '@/components/NotionPage'
+import NotionPage from './CustomNotionPage'
 import ShareBar from '@/components/ShareBar'
 import WWAds from '@/components/WWAds'
 import { siteConfig } from '@/lib/config'

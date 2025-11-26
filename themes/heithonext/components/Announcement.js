@@ -1,7 +1,7 @@
 import { useGlobal } from '@/lib/global'
 import dynamic from 'next/dynamic'
 
-const NotionPage = dynamic(() => import('@/components/NotionPage'))
+const NotionPage = dynamic(() => import('./CustomNotionPage'))
 
 const Announcement = ({ post, className }) => {
   const { locale } = useGlobal()

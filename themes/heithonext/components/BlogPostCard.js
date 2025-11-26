@@ -1,5 +1,5 @@
 import NotionIcon from '@/components/NotionIcon'
-import NotionPage from '@/components/NotionPage'
+import NotionPage from './CustomNotionPage'
 import TwikooCommentCount from '@/components/TwikooCommentCount'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
