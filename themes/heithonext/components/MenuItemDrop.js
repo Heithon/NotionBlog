@@ -13,7 +13,7 @@ export const MenuItemDrop = ({ link }) => {
       className='relative py-1.5 px-5 duration-300 text-base justify-between hover:bg-red-900 hover:text-white hover:shadow-lg cursor-pointer font-light flex flex-nowrap items-center '>
       {!hasSubMenu && (
         <Link
-          href={link?.href}
+          href={link?.href || '/'}
           target={link?.target}
           className='w-full my-auto items-center justify-between flex '>
           <div>

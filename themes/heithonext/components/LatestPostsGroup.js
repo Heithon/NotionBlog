@@ -33,7 +33,7 @@ const LatestPostsGroup = ({ latestPosts }) => {
           <Link
             key={post.id}
             title={post.title}
-            href={post?.href}
+            href={post?.href || '/'}
             passHref
             className={'my-1 flex font-light'}>
             <div

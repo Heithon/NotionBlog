@@ -29,7 +29,7 @@ export const MenuItemCollapse = props => {
         onClick={toggleShow}>
         {!hasSubMenu && (
           <Link
-            href={link?.href}
+            href={link?.href || '/'}
             target={link?.target}
             className='w-full my-auto items-center justify-between flex   dark:text-gray-200 '>
             <div>
